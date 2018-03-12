@@ -1,7 +1,7 @@
 #include <FastLED.h>
 
 #define LED_TYPE             WS2811
-#define NUM_STRIPS           2 // number of led strips, when changing this value, the setup function must be updated
+#define NUM_STRIPS           4 // number of led strips, when changing this value, the setup function must be updated
 #define BRIGHTNESS           64 // brightness of the leds
 #define TILE_LENGTH          4 // number of leds per tile
 #define COLOR_ORDER          GRB
@@ -32,8 +32,8 @@ void setup()
 
     FastLED.addLeds<LED_TYPE, 2, COLOR_ORDER>(leds[0], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
     FastLED.addLeds<LED_TYPE, 3, COLOR_ORDER>(leds[1], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-    //FastLED.addLeds<LED_TYPE, 4, COLOR_ORDER>(leds[2], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-    //FastLED.addLeds<LED_TYPE, 5, COLOR_ORDER>(leds[3], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
+    FastLED.addLeds<LED_TYPE, 4, COLOR_ORDER>(leds[2], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
+    FastLED.addLeds<LED_TYPE, 5, COLOR_ORDER>(leds[3], NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
     
     InitGame();
     randomSeed(37);
@@ -46,7 +46,6 @@ void loop()
   // check if a bongo was hit
   for(int i = 0; i < NUM_STRIPS; i++) {
     int piezoValue = analogRead(i);
-    //Serial.println(piezoValue);
 
     if(piezoValue > PIEZO_THRESHOLD) {
       bool ok = false;
