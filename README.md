@@ -11,6 +11,12 @@ Bongo Hero is an [Arduino](https://www.arduino.cc/) based game inspired by [Guit
 * Piezo electric disc *4
 * Megohm resistor *4
 
+# Schematics
+
+Simplified version using 1 strip of 1 led (i.e. 1 led) and 1 piezo.
+
+![](https://gitlab.forge.orange-labs.fr/code-room-caen/bongo-hero/blob/master/fritzing/bongo_hero_bb.png)
+
 # Dependencies
 
 * [FastLed](http://fastled.io/)
