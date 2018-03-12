@@ -20,7 +20,7 @@ Bongo Hero is an [Arduino](https://www.arduino.cc/) based game inspired by [Guit
 
 Simplified version using 1 strip of 1 led (i.e. 1 led) and 1 piezo.
 
-<img src="fritzing/bongo_hero_bb.png" width="475" height="400">
+<img src="doc/bongo_hero_bb.png" width="475" height="400">
 
 # Dependencies
 
