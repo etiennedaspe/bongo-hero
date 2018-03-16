@@ -9,11 +9,11 @@
 #define LEVEL_DURATION       5 // number of successful tap before level up
 #define PIEZO_THRESHOLD      500
 #define GAME_OVER_DELAY      1000 // in miliseconds, duration of the break when game is over
-#define INIT_REFRESH_RATE    300 // in milliseconds, led strips refresh rate when game starts
+#define INIT_REFRESH_RATE    250 // in milliseconds, led strips refresh rate when game starts
 #define NUM_LEDS_PER_STRIP   30 // number of leds per strip
 #define MAX_TILES_PER_STRIP  3 // the maximum number of tiles present at the same time on a led strip
 #define TILE_GENERATION_PROB 15 // probability to generate a new tile when possible the smaller it is, the more likely it is to generate one
-#define LEVEL_SPEED_INCREASE 10 // in milliseconds, increase the speed of the led strip refresh rate when level
+#define LEVEL_SPEED_INCREASE 5 // in milliseconds, increase the speed of the led strip refresh rate when level
 
 int score;
 int currentDelay;
@@ -76,6 +76,9 @@ void loop()
       if(currentDelay < 50) currentDelay = 50; // maximum speed
       currentColor = nextColor();
     }
+
+    // one tile maximum will be created during each refresh
+    bool tileCreated = false;
     
     // refresh display
     for(int i = 0; i < NUM_STRIPS; i++) {
@@ -84,14 +87,15 @@ void loop()
       // Fill last tile
       FillTile(TILE_LENGTH - 1, leds[i], CRGB::White);
     
-      if( numTiles[i] < MAX_TILES_PER_STRIP ) {
+      if(numTiles[i] < MAX_TILES_PER_STRIP) {
         // if there is enough space left on the strip
         // we try to create a new tile
         // 1/6 chance to create a new tile
-        if( canCreate[i] && random(0, TILE_GENERATION_PROB) == 0 ) {
+        if(canCreate[i] && random(0, TILE_GENERATION_PROB) == 0 && !tileCreated) {
           numTiles[i]++;
           tiles[i][currentIndex[i]] = NUM_LEDS_PER_STRIP - 1;
           currentIndex[i]++;
+          tileCreated = true;
         }
         canCreate[i] = true;
       }
