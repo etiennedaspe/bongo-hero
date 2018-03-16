@@ -105,8 +105,14 @@ void loop()
       // Fill tiles on the strip
       for(int j = 0; j < MAX_TILES_PER_STRIP; j++) {
         if(tiles[i][j] == -1) continue;
-    
-        FillTile(tiles[i][j], leds[i], currentColor);
+
+        if(!canCheck[i] && tiles[i][j] < TILE_LENGTH + MIN_INTERVAL && MIN_INTERVAL >= TILE_LENGTH) {
+          // We don't show a tile if it has already been taken in account by the player.
+          // This cannot be done this way if MIN_INTERVAL < TILE_LENGTH,
+          // in this case we'll have a fallback behaviour (we'll see the tile leaving the strip).
+        } else {
+          FillTile(tiles[i][j], leds[i], currentColor);
+        }
         tiles[i][j]--;
     
         // if tile exits the strip we decrement the number of tiles
