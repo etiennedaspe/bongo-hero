@@ -3,6 +3,8 @@ Bongo Hero
 
 Bongo Hero is an [Arduino](https://www.arduino.cc/) based game inspired by [Guitar Hero](https://fr.wikipedia.org/wiki/Guitar_Hero).
 
+<img src="doc/bongo-hero.gif">
+
 # Hardware components
 
 * Arduino UNO *1
