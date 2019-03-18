@@ -7,6 +7,7 @@
 #define COLOR_ORDER          GRB
 #define MIN_INTERVAL         5 // the minimum number of leds switched off between two tiles
 #define LEVEL_DURATION       5 // number of successful tap before level up
+#define MIN_TILE_DELAY       50 // in milliseconds, minimum duration for a tile in a position
 #define PIEZO_THRESHOLD      500
 #define GAME_OVER_DELAY      1000 // in miliseconds, duration of the break when game is over
 #define INIT_REFRESH_RATE    250 // in milliseconds, led strips refresh rate when game starts
@@ -73,7 +74,7 @@ void loop()
     // level up
     if(score % LEVEL_DURATION == 0 && score > 0) {
       currentDelay -= LEVEL_SPEED_INCREASE;
-      if(currentDelay < 50) currentDelay = 50; // maximum speed
+      if(currentDelay < MIN_TILE_DELAY) currentDelay = MIN_TILE_DELAY; // maximum speed
       currentColor = nextColor();
     }
 
@@ -208,5 +209,3 @@ CRGB nextColor() {
       return CRGB::Yellow;
   }
 }
-
-
