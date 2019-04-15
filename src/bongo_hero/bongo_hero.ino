@@ -44,10 +44,10 @@ void setup()
 
 void loop()
 { 
-  // check if a bongo was hit
   for(int i = 0; i < NUM_STRIPS; i++) {
     int piezoValue = analogRead(i);
 
+    // check if a bongo was hit
     if(piezoValue > PIEZO_THRESHOLD) {
       bool ok = false;
       for(int j = 0; j < MAX_TILES_PER_STRIP; j++) {
