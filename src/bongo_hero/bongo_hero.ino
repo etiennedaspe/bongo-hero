@@ -24,8 +24,8 @@ int numTiles[NUM_STRIPS];
 bool canCheck[NUM_STRIPS];
 bool canCreate[NUM_STRIPS];
 int currentIndex[NUM_STRIPS];
-int tiles[NUM_STRIPS][MAX_TILES_PER_STRIP];
 CRGB leds[NUM_STRIPS][NUM_LEDS_PER_STRIP];
+int tiles[NUM_STRIPS][MAX_TILES_PER_STRIP];
 
 void setup()
 {
@@ -85,13 +85,13 @@ void loop()
     for(int i = 0; i < NUM_STRIPS; i++) {
       SwitchOffLEDs(leds[i]);
 
-      // Fill last tile
+      // fill last tile
       FillTile(TILE_LENGTH - 1, leds[i], CRGB::White);
     
       if(numTiles[i] < MAX_TILES_PER_STRIP) {
         // if there is enough space left on the strip
         // we try to create a new tile
-        // 1/6 chance to create a new tile
+        // 1/TILE_GENERATION_PROB chance to create a new tile
         if(canCreate[i] && random(0, TILE_GENERATION_PROB) == 0 && !tileCreated) {
           numTiles[i]++;
           tiles[i][currentIndex[i]] = NUM_LEDS_PER_STRIP - 1;
@@ -107,7 +107,7 @@ void loop()
         currentIndex[i] = 0;
       }
 
-      // Fill tiles on the strip
+      // fill tiles on the strip
       for(int j = 0; j < MAX_TILES_PER_STRIP; j++) {
         if(tiles[i][j] == -1) continue;
 
@@ -179,7 +179,7 @@ void InitGame()
 void GameOver()
 {
   for(int i = 0; i < NUM_STRIPS; i++) {
-    // Fill last tile in red
+    // fill last tile in red
     FillTile(TILE_LENGTH - 1, leds[i], CRGB::Red);
   }
   FastLED.show();
